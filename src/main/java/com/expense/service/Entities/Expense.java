@@ -45,22 +45,14 @@ public class Expense {
 
     @PrePersist
     @PreUpdate
-    private void generateExternalId()
-    {
-        if(this.externalId ==null)
-        {
+    private void prePersistOrUpdate() {
+        if (this.externalId == null) {
             this.externalId = UUID.randomUUID().toString();
+        }
+        if (this.createdAt == null) {
+            this.createdAt = Timestamp.valueOf(LocalDateTime.now());
         }
     }
 
-    @PrePersist
-    @PreUpdate
-    private void generateCreatedAt()
-    {
-        if(this.createdAt==null)
-        {
-            this.createdAt= Timestamp.valueOf(LocalDateTime.now());
-        }
-    }
 }
 
